@@ -103,6 +103,18 @@ export function makeMath(addends: number[]): string {
  * For instance, the array [1, 9, -5, 7] would become [1, 9, -5, 10, 7]
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
+
+// index of first neg: values.findIndex((num: number): boolean => {return num < 0})
 export function injectPositive(values: number[]): number[] {
-    return [];
+    let firstNegativeIndex = values.findIndex((num: number): boolean => {
+        return num < 0;
+    });
+    firstNegativeIndex =
+        firstNegativeIndex == -1 ? values.length : firstNegativeIndex;
+    let sumBeforeNegative = values
+        .slice(0, firstNegativeIndex)
+        .reduce((currentTotal: number, num: number) => currentTotal + num, 0);
+    let spliced_values = [...values];
+    spliced_values.splice(firstNegativeIndex + 1, 0, sumBeforeNegative);
+    return spliced_values;
 }
