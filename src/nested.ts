@@ -135,5 +135,16 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string,
 ): Question[] {
-    return [];
+    return questions.map((q: Question): Question => {
+        if (q.id !== targetId) {
+            return q;
+        }
+        let newOptions: string[] = [...q.options];
+        if (targetOptionIndex === -1) {
+            newOptions = [...newOptions, newOption];
+        } else {
+            newOptions.splice(targetOptionIndex, 1, newOption);
+        }
+        return { ...q, options: newOptions };
+    });
 }
