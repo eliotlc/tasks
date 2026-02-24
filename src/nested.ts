@@ -33,7 +33,9 @@ export function findQuestion(
     questions: Question[],
     id: number,
 ): Question | null {
-    return null;
+    return questions.filter((q: Question) => q.id === id).length === 0 ?
+            null
+        :   questions.filter((q: Question) => q.id === id)[0];
 }
 
 /**
